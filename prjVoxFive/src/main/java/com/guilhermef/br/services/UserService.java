@@ -27,7 +27,7 @@ public class UserService {
 
 	public UserResponseDto findById(Long id) {
 		User user = userRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Usuário Não Encontrado"));
+				.orElseThrow(() -> new RuntimeException("User Not Found"));
 		return userMapper.toUserResponseDto(user);
 	}
 
@@ -40,7 +40,7 @@ public class UserService {
 
 	public UserResponseDto update(Long id, UserRequestDto dto) {
 		User user = userRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Usuário Não Encontrado"));
+				.orElseThrow(() -> new RuntimeException("User Not Found"));
 		
 		if (dto.getName() != null && !dto.getName().isBlank()) {
 			user.setName(dto.getName());
@@ -58,7 +58,7 @@ public class UserService {
 
 	public void deleteById(Long id) {
 		if (!userRepository.existsById(id)) {
-			throw new RuntimeException("Usuário Não Encontrado");
+			throw new RuntimeException("User Not Found");
 		}
 		userRepository.deleteById(id);
 	}

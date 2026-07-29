@@ -33,6 +33,7 @@ public class Feedback {
 	@OneToOne
 	private User user;
 	
+	@Builder.Default
 	@DateTimeFormat
 	private String creation = new DateUtil().formatLocalTimeToDatabaseStyle(LocalDateTime.now());
 }
