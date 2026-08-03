@@ -12,6 +12,10 @@ import lombok.Data;
 @Data
 public class FeedbackRequestDto {
 	
+	private Long id;
+	
+	private String creation;
+	
 	@NotNull
 	@Valid
 	@Column(updatable = false)

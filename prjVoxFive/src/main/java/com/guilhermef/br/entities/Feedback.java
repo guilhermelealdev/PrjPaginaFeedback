@@ -34,7 +34,6 @@ public class Feedback {
 	
 	@NotNull
 	@Valid
-	@Column(updatable = false)
 	@ManyToOne
 	private User user;
 	

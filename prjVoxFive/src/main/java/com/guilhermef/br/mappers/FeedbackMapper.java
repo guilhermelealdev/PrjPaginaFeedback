@@ -13,7 +13,7 @@ import com.guilhermef.br.responseDtos.FeedbackResponseDto;
 public abstract class FeedbackMapper {
 	
 	public abstract FeedbackResponseDto toFeedbackResponseDto(Feedback feedback);
-	public abstract Feedback toFeedback(FeedbackRequestDto feedbackResponse);
+	public abstract Feedback toFeedback(FeedbackRequestDto feedbackRequestDto);
 	
 	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 	public abstract Feedback updateFeedbackFromDto(FeedbackRequestDto dto, @MappingTarget Feedback feedback);
