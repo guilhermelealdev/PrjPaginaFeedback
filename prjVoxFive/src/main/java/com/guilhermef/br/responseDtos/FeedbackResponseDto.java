@@ -14,4 +14,7 @@ public class FeedbackResponseDto {
 	@DateTimeFormat
 	private String creation;
 	
+	@NotBlank
+	private String tipo;
+	
 }

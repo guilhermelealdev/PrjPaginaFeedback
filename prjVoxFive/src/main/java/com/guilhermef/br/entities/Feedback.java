@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.guilhermef.br.utils.DateUtil;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,5 +36,14 @@ public class Feedback {
 	
 	@Builder.Default
 	@DateTimeFormat
+	@Column(updatable = false)
 	private String creation = new DateUtil().formatLocalTimeToDatabaseStyle(LocalDateTime.now());
+	
+	@NotBlank
+	private String tipo;
+	
+	@Builder.Default
+	private String status = "Em análise";
+	
+	
 }

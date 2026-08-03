@@ -21,13 +21,18 @@ public class UserService {
 
 	public UserResponseDto save(UserRequestDto dto) {
 		User user = userMapper.toUser(dto);
-		User userSalvo = userRepository.save(user);
-		return userMapper.toUserResponseDto(userSalvo);
+		User savedUser = userRepository.save(user);
+		return userMapper.toUserResponseDto(savedUser);
 	}
-
-	public UserResponseDto findById(Long id) {
+	
+	public User findByIdOrThrowBadRequest(Long id) {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("User Not Found"));
+		return user;
+	}
+	
+	public UserResponseDto findById(Long id) {
+		User user = findByIdOrThrowBadRequest(id);
 		return userMapper.toUserResponseDto(user);
 	}
 
@@ -39,27 +44,14 @@ public class UserService {
 	}
 
 	public UserResponseDto update(Long id, UserRequestDto dto) {
-		User user = userRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("User Not Found"));
-		
-		if (dto.getName() != null && !dto.getName().isBlank()) {
-			user.setName(dto.getName());
-		}
-		if (dto.getEmail() != null && !dto.getEmail().isBlank()) {
-			user.setEmail(dto.getEmail());
-		}
-		if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
-			user.setPassword(dto.getPassword());
-		}
-
+		User user = findByIdOrThrowBadRequest(id);
+		userMapper.updateUserFromDto(dto, user);
 		User updatedUser = userRepository.save(user);
 		return userMapper.toUserResponseDto(updatedUser);
 	}
 
 	public void deleteById(Long id) {
-		if (!userRepository.existsById(id)) {
-			throw new RuntimeException("User Not Found");
-		}
+		findByIdOrThrowBadRequest(id);
 		userRepository.deleteById(id);
 	}
 }

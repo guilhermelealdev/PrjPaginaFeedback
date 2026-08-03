@@ -26,4 +26,6 @@ public class UserRequestDto {
 	
 	@OneToMany
 	private List<Feedback> feedback;
+	
+	
 }
