@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-08-03T09:04:23-0300",
+    date = "2026-08-03T10:14:27-0300",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.v20250526-2018, environment: Java 21.0.8 (Eclipse Adoptium)"
 )
 @Component
@@ -24,7 +24,7 @@ public class FeedbackMapperImpl extends FeedbackMapper {
 
         feedbackResponseDto.setCreation( feedback.getCreation() );
         feedbackResponseDto.setId( feedback.getId() );
-        feedbackResponseDto.setTipo( feedback.getTipo() );
+        feedbackResponseDto.setType( feedback.getType() );
 
         return feedbackResponseDto;
     }
@@ -37,9 +37,8 @@ public class FeedbackMapperImpl extends FeedbackMapper {
 
         Feedback.FeedbackBuilder feedback = Feedback.builder();
 
-        feedback.id( feedbackResponse.getId() );
         feedback.status( feedbackResponse.getStatus() );
-        feedback.tipo( feedbackResponse.getTipo() );
+        feedback.type( feedbackResponse.getType() );
         feedback.user( feedbackResponse.getUser() );
 
         return feedback.build();
@@ -51,14 +50,11 @@ public class FeedbackMapperImpl extends FeedbackMapper {
             return feedback;
         }
 
-        if ( dto.getId() != null ) {
-            feedback.setId( dto.getId() );
-        }
         if ( dto.getStatus() != null ) {
             feedback.setStatus( dto.getStatus() );
         }
-        if ( dto.getTipo() != null ) {
-            feedback.setTipo( dto.getTipo() );
+        if ( dto.getType() != null ) {
+            feedback.setType( dto.getType() );
         }
         if ( dto.getUser() != null ) {
             feedback.setUser( dto.getUser() );

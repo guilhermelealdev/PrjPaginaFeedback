@@ -15,6 +15,6 @@ public class FeedbackResponseDto {
 	private String creation;
 	
 	@NotBlank
-	private String tipo;
+	private String type;
 	
 }

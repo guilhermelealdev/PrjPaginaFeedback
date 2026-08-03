@@ -37,12 +37,11 @@ public class User {
 	@Email
 	private String email;
 	
-	@NotBlank
 	@OneToMany
 	private List<Feedback> feedback;
 	
 	@NotBlank
 	@Column(updatable = false)
-	private String type;
+	private String role;
 
 }

@@ -13,7 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,8 +31,9 @@ public class Feedback {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private Long id;
-
-	@NotBlank
+	
+	@NotNull
+	@Valid
 	@OneToOne
 	private User user;
 	
@@ -40,10 +43,10 @@ public class Feedback {
 	private String creation = new DateUtil().formatLocalTimeToDatabaseStyle(LocalDateTime.now());
 	
 	@NotBlank
-	private String tipo;
+	private String type;
 	
-	@Builder.Default
-	private String status = "Em análise";
+	@NotBlank
+	private String status;
 	
 	
 }

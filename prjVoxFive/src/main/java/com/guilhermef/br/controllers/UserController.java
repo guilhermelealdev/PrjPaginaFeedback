@@ -1,5 +1,6 @@
 package com.guilhermef.br.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,17 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 import com.guilhermef.br.requestDtos.UserRequestDto;
 import com.guilhermef.br.responseDtos.UserResponseDto;
 import com.guilhermef.br.services.UserService;
+import com.guilhermef.br.utils.DateUtil;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @RestController
 @RequiredArgsConstructor
+@Log4j2
 @RequestMapping("/users")
 public class UserController {
 	private final UserService userService;
+	private final DateUtil dateUtil;
 
 	@PostMapping
 	public UserResponseDto save(@RequestBody UserRequestDto dto) {
+		log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
 		return userService.save(dto);
 	}
 
@@ -35,16 +41,19 @@ public class UserController {
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
+		log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
 		userService.deleteById(id);
 	}
 	
 	@GetMapping("/{id}")
 	public UserResponseDto getById(@PathVariable Long id) {
+		log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
 		return userService.findById(id);
 	}
 	
 	@GetMapping
 	public List<UserResponseDto> listAll(){
+		log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
 		return userService.listAll();
 	}
 }
