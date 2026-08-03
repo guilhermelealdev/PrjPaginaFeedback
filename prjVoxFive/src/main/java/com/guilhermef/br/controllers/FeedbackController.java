@@ -52,7 +52,7 @@ public class FeedbackController {
 		feedbackService.deleteById(id);
 	}
 	
-	@PutMapping
+	@PutMapping("/{id}")
 	public FeedbackResponseDto update(@RequestBody FeedbackRequestDto dto, @PathVariable Long id) {
 		log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
 		return feedbackService.update(id, dto);

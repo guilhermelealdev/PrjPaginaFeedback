@@ -17,4 +17,7 @@ public class FeedbackResponseDto {
 	@NotBlank
 	private String type;
 	
+	@NotBlank
+	private String message;
+	
 }
