@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.guilhermef.br.entities.Feedback;
+import com.guilhermef.br.exceptions.BadRequestException;
 import com.guilhermef.br.mappers.FeedbackMapper;
 import com.guilhermef.br.repositories.FeedbackRepository;
 import com.guilhermef.br.repositories.UserRepository;
 import com.guilhermef.br.requestDtos.FeedbackRequestDto;
 import com.guilhermef.br.responseDtos.FeedbackResponseDto;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -22,6 +24,7 @@ public class FeedbackService {
 	private final FeedbackRepository feedbackRepository;
 	private final FeedbackMapper feedbackMapper;
 
+	@Transactional
 	public FeedbackResponseDto save(FeedbackRequestDto dto) {
 		Feedback feedback = feedbackMapper.toFeedback(dto);
 		Feedback savedFeedback = feedbackRepository.save(feedback);
@@ -30,7 +33,7 @@ public class FeedbackService {
 
 	public Feedback findOrThrowBadRequest(Long id) {
 		Feedback feedback = feedbackRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Feedback not found!"));
+				.orElseThrow(() -> new BadRequestException("Feedback not found!"));
 		return feedback;
 	}
 

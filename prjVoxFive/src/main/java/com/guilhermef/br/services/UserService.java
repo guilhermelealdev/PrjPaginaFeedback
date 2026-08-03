@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.guilhermef.br.entities.User;
+import com.guilhermef.br.exceptions.BadRequestException;
 import com.guilhermef.br.mappers.UserMapper;
 import com.guilhermef.br.repositories.UserRepository;
 import com.guilhermef.br.requestDtos.UserRequestDto;
 import com.guilhermef.br.responseDtos.UserResponseDto;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -18,7 +20,8 @@ public class UserService {
 
 	private final UserRepository userRepository;
 	private final UserMapper userMapper;
-
+	
+	@Transactional
 	public UserResponseDto save(UserRequestDto dto) {
 		User user = userMapper.toUser(dto);
 		User savedUser = userRepository.save(user);
@@ -27,7 +30,7 @@ public class UserService {
 	
 	public User findByIdOrThrowBadRequest(Long id) {
 		User user = userRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("User Not Found"));
+				.orElseThrow(() -> new BadRequestException("User not found!"));
 		return user;
 	}
 	

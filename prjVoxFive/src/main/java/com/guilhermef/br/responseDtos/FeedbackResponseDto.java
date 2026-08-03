@@ -1,6 +1,10 @@
 package com.guilhermef.br.responseDtos;
 
+import java.time.LocalDateTime;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.guilhermef.br.utils.DateUtil;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -12,7 +16,7 @@ public class FeedbackResponseDto {
 	private Long id;
 	
 	@DateTimeFormat
-	private String creation;
+	private String creation = new DateUtil().formatLocalTimeToDatabaseStyle(LocalDateTime.now());
 	
 	@NotBlank
 	private String type;

@@ -3,6 +3,8 @@ package com.guilhermef.br.controllers;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,31 +32,32 @@ public class FeedbackController {
 	private final DateUtil dateUtil;
 	
 	@PostMapping
-	public FeedbackResponseDto save(@RequestBody FeedbackRequestDto dto) {
+	public ResponseEntity<FeedbackResponseDto> save(@RequestBody FeedbackRequestDto dto) {
 		log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
-		return feedbackService.save(dto);
+		return new ResponseEntity<>(feedbackService.save(dto), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{id}")
-	public FeedbackResponseDto findById(@PathVariable Long id) {
-		return feedbackService.findById(id);
+	public ResponseEntity<FeedbackResponseDto> findById(@PathVariable Long id) {
+		return new ResponseEntity<>(feedbackService.findById(id), HttpStatus.OK);
 	}
 	
 	@GetMapping
-	public List<FeedbackResponseDto> listAll(){
+	public ResponseEntity<List<FeedbackResponseDto>> listAll(){
 		log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
-		return feedbackService.listAll();
+		return new ResponseEntity<>(feedbackService.listAll(), HttpStatus.OK);
 	}
 	
 	@DeleteMapping
-	public void deleteById(Long id) {
+	public ResponseEntity<Void> deleteById(Long id) {
 		log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
 		feedbackService.deleteById(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	@PutMapping("/{id}")
-	public FeedbackResponseDto update(@RequestBody FeedbackRequestDto dto, @PathVariable Long id) {
+	public ResponseEntity<FeedbackResponseDto> update(@RequestBody FeedbackRequestDto dto, @PathVariable Long id) {
 		log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
-		return feedbackService.update(id, dto);
+		return new ResponseEntity<>(feedbackService.update(id, dto), HttpStatus.OK);
 	}
 }

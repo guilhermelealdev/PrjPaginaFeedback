@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-08-03T11:20:22-0300",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2026-08-03T13:39:35-0300",
+    comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.v20250526-2018, environment: Java 21.0.8 (Eclipse Adoptium)"
 )
 @Component
 public class UserMapperImpl extends UserMapper {
@@ -39,14 +39,14 @@ public class UserMapperImpl extends UserMapper {
 
         User.UserBuilder user = User.builder();
 
-        user.id( userRequest.getId() );
-        user.name( userRequest.getName() );
-        user.password( userRequest.getPassword() );
         user.email( userRequest.getEmail() );
         List<Feedback> list = userRequest.getFeedback();
         if ( list != null ) {
             user.feedback( new ArrayList<Feedback>( list ) );
         }
+        user.id( userRequest.getId() );
+        user.name( userRequest.getName() );
+        user.password( userRequest.getPassword() );
         user.role( userRequest.getRole() );
 
         return user.build();
@@ -58,15 +58,6 @@ public class UserMapperImpl extends UserMapper {
             return user;
         }
 
-        if ( dto.getId() != null ) {
-            user.setId( dto.getId() );
-        }
-        if ( dto.getName() != null ) {
-            user.setName( dto.getName() );
-        }
-        if ( dto.getPassword() != null ) {
-            user.setPassword( dto.getPassword() );
-        }
         if ( dto.getEmail() != null ) {
             user.setEmail( dto.getEmail() );
         }
@@ -82,6 +73,15 @@ public class UserMapperImpl extends UserMapper {
             if ( list != null ) {
                 user.setFeedback( new ArrayList<Feedback>( list ) );
             }
+        }
+        if ( dto.getId() != null ) {
+            user.setId( dto.getId() );
+        }
+        if ( dto.getName() != null ) {
+            user.setName( dto.getName() );
+        }
+        if ( dto.getPassword() != null ) {
+            user.setPassword( dto.getPassword() );
         }
         if ( dto.getRole() != null ) {
             user.setRole( dto.getRole() );

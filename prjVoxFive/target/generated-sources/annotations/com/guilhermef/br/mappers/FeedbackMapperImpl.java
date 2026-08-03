@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-08-03T11:20:22-0300",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2026-08-03T13:39:35-0300",
+    comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.v20250526-2018, environment: Java 21.0.8 (Eclipse Adoptium)"
 )
 @Component
 public class FeedbackMapperImpl extends FeedbackMapper {
@@ -22,10 +22,10 @@ public class FeedbackMapperImpl extends FeedbackMapper {
 
         FeedbackResponseDto feedbackResponseDto = new FeedbackResponseDto();
 
-        feedbackResponseDto.setId( feedback.getId() );
         feedbackResponseDto.setCreation( feedback.getCreation() );
-        feedbackResponseDto.setType( feedback.getType() );
+        feedbackResponseDto.setId( feedback.getId() );
         feedbackResponseDto.setMessage( feedback.getMessage() );
+        feedbackResponseDto.setType( feedback.getType() );
 
         return feedbackResponseDto;
     }
@@ -38,12 +38,12 @@ public class FeedbackMapperImpl extends FeedbackMapper {
 
         Feedback.FeedbackBuilder feedback = Feedback.builder();
 
-        feedback.id( feedbackRequestDto.getId() );
-        feedback.user( feedbackRequestDto.getUser() );
         feedback.creation( feedbackRequestDto.getCreation() );
-        feedback.type( feedbackRequestDto.getType() );
-        feedback.status( feedbackRequestDto.getStatus() );
+        feedback.id( feedbackRequestDto.getId() );
         feedback.message( feedbackRequestDto.getMessage() );
+        feedback.status( feedbackRequestDto.getStatus() );
+        feedback.type( feedbackRequestDto.getType() );
+        feedback.user( feedbackRequestDto.getUser() );
 
         return feedback.build();
     }
@@ -54,23 +54,23 @@ public class FeedbackMapperImpl extends FeedbackMapper {
             return feedback;
         }
 
-        if ( dto.getId() != null ) {
-            feedback.setId( dto.getId() );
-        }
-        if ( dto.getUser() != null ) {
-            feedback.setUser( dto.getUser() );
-        }
         if ( dto.getCreation() != null ) {
             feedback.setCreation( dto.getCreation() );
         }
-        if ( dto.getType() != null ) {
-            feedback.setType( dto.getType() );
+        if ( dto.getId() != null ) {
+            feedback.setId( dto.getId() );
+        }
+        if ( dto.getMessage() != null ) {
+            feedback.setMessage( dto.getMessage() );
         }
         if ( dto.getStatus() != null ) {
             feedback.setStatus( dto.getStatus() );
         }
-        if ( dto.getMessage() != null ) {
-            feedback.setMessage( dto.getMessage() );
+        if ( dto.getType() != null ) {
+            feedback.setType( dto.getType() );
+        }
+        if ( dto.getUser() != null ) {
+            feedback.setUser( dto.getUser() );
         }
 
         return feedback;

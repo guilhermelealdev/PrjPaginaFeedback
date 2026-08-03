@@ -1,6 +1,11 @@
 package com.guilhermef.br.requestDtos;
 
+import java.time.LocalDateTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.guilhermef.br.entities.User;
+import com.guilhermef.br.utils.DateUtil;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
@@ -14,7 +19,8 @@ public class FeedbackRequestDto {
 	
 	private Long id;
 	
-	private String creation;
+	@DateTimeFormat
+	private String creation = new DateUtil().formatLocalTimeToDatabaseStyle(LocalDateTime.now());
 	
 	@NotNull
 	@Valid
