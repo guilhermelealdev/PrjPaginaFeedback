@@ -51,4 +51,7 @@ public class Feedback {
 	@NotBlank
 	private String message;
 	
+	@NotBlank
+	private String response;
+	
 }

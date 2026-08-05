@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-08-03T13:39:35-0300",
+    date = "2026-08-05T08:09:43-0300",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.v20250526-2018, environment: Java 21.0.8 (Eclipse Adoptium)"
 )
 @Component
@@ -41,6 +41,7 @@ public class FeedbackMapperImpl extends FeedbackMapper {
         feedback.creation( feedbackRequestDto.getCreation() );
         feedback.id( feedbackRequestDto.getId() );
         feedback.message( feedbackRequestDto.getMessage() );
+        feedback.response( feedbackRequestDto.getResponse() );
         feedback.status( feedbackRequestDto.getStatus() );
         feedback.type( feedbackRequestDto.getType() );
         feedback.user( feedbackRequestDto.getUser() );
@@ -62,6 +63,9 @@ public class FeedbackMapperImpl extends FeedbackMapper {
         }
         if ( dto.getMessage() != null ) {
             feedback.setMessage( dto.getMessage() );
+        }
+        if ( dto.getResponse() != null ) {
+            feedback.setResponse( dto.getResponse() );
         }
         if ( dto.getStatus() != null ) {
             feedback.setStatus( dto.getStatus() );

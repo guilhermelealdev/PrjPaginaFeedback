@@ -37,4 +37,7 @@ public class FeedbackRequestDto {
 	@NotBlank
 	private String message;
 	
+	@NotBlank
+	private String response;
+	
 }
