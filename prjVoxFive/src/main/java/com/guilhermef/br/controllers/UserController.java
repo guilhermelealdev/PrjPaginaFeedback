@@ -54,8 +54,8 @@ public class UserController {
 		userService.deleteById(id);
 	}
 	
-	@GetMapping("/{id}")
-	public UserResponseDto getById(@PathVariable Long id) {
+	@GetMapping("/by-id")
+	public UserResponseDto getById(@RequestParam Long id) {
 		log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
 		return userService.findById(id);
 	}
