@@ -3,12 +3,14 @@ package com.guilhermef.br.mappers;
 import com.guilhermef.br.entities.Feedback;
 import com.guilhermef.br.requestDtos.FeedbackRequestDto;
 import com.guilhermef.br.responseDtos.FeedbackResponseDto;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-08-05T08:09:43-0300",
+    date = "2026-08-05T12:35:43-0300",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.v20250526-2018, environment: Java 21.0.8 (Eclipse Adoptium)"
 )
 @Component
@@ -47,6 +49,20 @@ public class FeedbackMapperImpl extends FeedbackMapper {
         feedback.user( feedbackRequestDto.getUser() );
 
         return feedback.build();
+    }
+
+    @Override
+    public List<FeedbackResponseDto> toFeedbackResponseDtoList(List<Feedback> feedbacks) {
+        if ( feedbacks == null ) {
+            return null;
+        }
+
+        List<FeedbackResponseDto> list = new ArrayList<FeedbackResponseDto>( feedbacks.size() );
+        for ( Feedback feedback : feedbacks ) {
+            list.add( toFeedbackResponseDto( feedback ) );
+        }
+
+        return list;
     }
 
     @Override

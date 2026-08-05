@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.guilhermef.br.requestDtos.FeedbackRequestDto;
@@ -31,14 +32,32 @@ public class FeedbackController {
 	private final FeedbackService feedbackService;
 	private final DateUtil dateUtil;
 	
+	@GetMapping("/by-name")
+	public ResponseEntity<List<FeedbackResponseDto>> findByUsername(@RequestParam String username) {
+	    log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
+	    return new ResponseEntity<>(feedbackService.findByUsername(username), HttpStatus.OK);
+	}
+	
+	@GetMapping("/by-type")
+	public ResponseEntity<List<FeedbackResponseDto>> findByType(@RequestParam String type) {
+	    log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
+	    return new ResponseEntity<>(feedbackService.findByType(type), HttpStatus.OK);
+	}
+	
+	@GetMapping("/by-status")
+	public ResponseEntity<List<FeedbackResponseDto>> findByStatus(@RequestParam String status) {
+	    log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
+	    return new ResponseEntity<>(feedbackService.findByStatus(status), HttpStatus.OK);
+	}
+	
 	@PostMapping
 	public ResponseEntity<FeedbackResponseDto> save(@RequestBody FeedbackRequestDto dto) {
 		log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
 		return new ResponseEntity<>(feedbackService.save(dto), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<FeedbackResponseDto> findById(@PathVariable Long id) {
+	@GetMapping("by-id")
+	public ResponseEntity<FeedbackResponseDto> findById(@RequestParam Long id) {
 		return new ResponseEntity<>(feedbackService.findById(id), HttpStatus.OK);
 	}
 	
@@ -48,8 +67,8 @@ public class FeedbackController {
 		return new ResponseEntity<>(feedbackService.listAll(), HttpStatus.OK);
 	}
 	
-	@DeleteMapping
-	public ResponseEntity<Void> deleteById(Long id) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteById(@PathVariable Long id) {
 		log.info(dateUtil.formatLocalTimeToDatabaseStyle(LocalDateTime.now()));
 		feedbackService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

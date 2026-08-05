@@ -20,30 +20,38 @@ public class UserService {
 
 	private final UserRepository userRepository;
 	private final UserMapper userMapper;
-	
+
+	public UserResponseDto findByEmail(String email) {
+
+		User user = userRepository.findByEmail(email).orElseThrow(() -> new BadRequestException("Email not found!"));
+
+		return userMapper.toUserResponseDto(user);
+	}
+
 	@Transactional
 	public UserResponseDto save(UserRequestDto dto) {
+
+		userRepository.findByEmail(dto.getEmail()).ifPresent(user -> {
+			throw new BadRequestException("E-mail já cadastrado no sistema!");
+		});
+
 		User user = userMapper.toUser(dto);
 		User savedUser = userRepository.save(user);
 		return userMapper.toUserResponseDto(savedUser);
 	}
-	
+
 	public User findByIdOrThrowBadRequest(Long id) {
-		User user = userRepository.findById(id)
-				.orElseThrow(() -> new BadRequestException("User not found!"));
+		User user = userRepository.findById(id).orElseThrow(() -> new BadRequestException("User not found!"));
 		return user;
 	}
-	
+
 	public UserResponseDto findById(Long id) {
 		User user = findByIdOrThrowBadRequest(id);
 		return userMapper.toUserResponseDto(user);
 	}
 
 	public List<UserResponseDto> listAll() {
-		return userRepository.findAll()
-				.stream()
-				.map(user -> userMapper.toUserResponseDto(user))
-				.toList();
+		return userRepository.findAll().stream().map(user -> userMapper.toUserResponseDto(user)).toList();
 	}
 
 	public UserResponseDto update(Long id, UserRequestDto dto) {

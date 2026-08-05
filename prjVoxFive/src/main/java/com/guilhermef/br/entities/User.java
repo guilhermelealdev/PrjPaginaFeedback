@@ -2,6 +2,7 @@ package com.guilhermef.br.entities;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,15 +30,16 @@ public class User {
 	private Long id;
 
 	@NotBlank
-	private String name;
+	private String username;
 
 	@NotBlank
 	private String password;
 
 	@Email
+	@Column(unique = true)
 	private String email;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Feedback> feedback;
 	
 	@NotBlank

@@ -8,7 +8,6 @@ import com.guilhermef.br.entities.Feedback;
 import com.guilhermef.br.exceptions.BadRequestException;
 import com.guilhermef.br.mappers.FeedbackMapper;
 import com.guilhermef.br.repositories.FeedbackRepository;
-import com.guilhermef.br.repositories.UserRepository;
 import com.guilhermef.br.requestDtos.FeedbackRequestDto;
 import com.guilhermef.br.responseDtos.FeedbackResponseDto;
 
@@ -19,10 +18,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FeedbackService {
 
-	private final UserRepository userRepository;
-
 	private final FeedbackRepository feedbackRepository;
 	private final FeedbackMapper feedbackMapper;
+	
+	public List<FeedbackResponseDto> findByUsername(String username) {
+		List<Feedback> feedbacks = feedbackRepository.findByUserUsername(username);
+		return feedbackMapper.toFeedbackResponseDtoList(feedbacks);
+	}
+	
+	public List<FeedbackResponseDto> findByType(String type) {
+		List<Feedback> feedbacks = feedbackRepository.findByType(type);
+		return feedbackMapper.toFeedbackResponseDtoList(feedbacks);
+	}
+	
+	public List<FeedbackResponseDto> findByStatus(String status) {
+		List<Feedback> feedbacks = feedbackRepository.findByStatus(status);
+		return feedbackMapper.toFeedbackResponseDtoList(feedbacks);
+	}
 
 	@Transactional
 	public FeedbackResponseDto save(FeedbackRequestDto dto) {
@@ -49,7 +61,7 @@ public class FeedbackService {
 
 	public void deleteById(Long id) {
 		findOrThrowBadRequest(id);
-		userRepository.deleteById(id);
+		feedbackRepository.deleteById(id);
 	}
 
 	public FeedbackResponseDto update(Long id, FeedbackRequestDto dto) {

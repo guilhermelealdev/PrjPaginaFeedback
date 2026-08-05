@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-08-05T08:09:43-0300",
+    date = "2026-08-05T12:35:43-0300",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.v20250526-2018, environment: Java 21.0.8 (Eclipse Adoptium)"
 )
 @Component
@@ -25,8 +25,9 @@ public class UserMapperImpl extends UserMapper {
 
         UserResponseDto userResponseDto = new UserResponseDto();
 
+        userResponseDto.setEmail( user.getEmail() );
         userResponseDto.setId( user.getId() );
-        userResponseDto.setName( user.getName() );
+        userResponseDto.setUsername( user.getUsername() );
 
         return userResponseDto;
     }
@@ -45,11 +46,25 @@ public class UserMapperImpl extends UserMapper {
             user.feedback( new ArrayList<Feedback>( list ) );
         }
         user.id( userRequest.getId() );
-        user.name( userRequest.getName() );
         user.password( userRequest.getPassword() );
         user.role( userRequest.getRole() );
+        user.username( userRequest.getUsername() );
 
         return user.build();
+    }
+
+    @Override
+    public List<UserResponseDto> toUserResponseDtoList(List<User> users) {
+        if ( users == null ) {
+            return null;
+        }
+
+        List<UserResponseDto> list = new ArrayList<UserResponseDto>( users.size() );
+        for ( User user : users ) {
+            list.add( toUserResponseDto( user ) );
+        }
+
+        return list;
     }
 
     @Override
@@ -77,14 +92,14 @@ public class UserMapperImpl extends UserMapper {
         if ( dto.getId() != null ) {
             user.setId( dto.getId() );
         }
-        if ( dto.getName() != null ) {
-            user.setName( dto.getName() );
-        }
         if ( dto.getPassword() != null ) {
             user.setPassword( dto.getPassword() );
         }
         if ( dto.getRole() != null ) {
             user.setRole( dto.getRole() );
+        }
+        if ( dto.getUsername() != null ) {
+            user.setUsername( dto.getUsername() );
         }
 
         return user;
